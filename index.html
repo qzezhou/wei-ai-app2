@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#0b0e1a" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>喂！AI</title>
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+<link rel="stylesheet" href="css/style.css?v=6" />
+</head>
+<body>
+<div id="app">
+
+  <!-- ============ 首页 ============ -->
+  <section class="page" id="page-home">
+    <header class="home-top">
+      <div class="streak-chip" id="streak-chip">
+        <span class="flame">🔥</span>
+        <b id="streak-count">0</b>
+        <span class="streak-text">天连胜</span>
+      </div>
+      <div class="freeze-chip" id="freeze-chip" title="补签卡">🧊 <b id="freeze-count">0</b></div>
+    </header>
+
+    <div class="robot-stage" id="robot-stage">
+      <!-- robot SVG 注入 -->
+    </div>
+
+    <div class="bubble" id="robot-bubble">
+      <span id="bubble-text">你好呀，投喂员！</span>
+    </div>
+
+    <h1 class="robot-name" id="robot-name">小铁 <span class="lv" id="robot-level">Lv.1</span></h1>
+
+    <div class="xp-wrap">
+      <div class="xp-bar"><div class="xp-fill" id="xp-fill"></div></div>
+      <div class="xp-label" id="xp-label">数据能量 0</div>
+    </div>
+
+    <div class="daily-ring-wrap">
+      <svg class="daily-ring" viewBox="0 0 120 120">
+        <circle class="ring-bg" cx="60" cy="60" r="52"/>
+        <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52"/>
+      </svg>
+      <div class="daily-ring-center">
+        <b id="daily-count">0</b><span>/10</span>
+        <small id="daily-hint">今日消化</small>
+      </div>
+    </div>
+
+    <button class="btn-primary btn-feed-go" id="go-feed">🍜 去喂数据</button>
+    <div class="mood-wrap">
+      <span class="mood-label" id="mood-label">心情不错 🙂</span>
+      <div class="mood-bar"><div class="mood-fill" id="mood-fill"></div></div>
+    </div>
+    <div class="mini-btns">
+      <button class="btn-ghost mini-btn" id="btn-guess">🔢 猜数字</button>
+      <button class="btn-ghost mini-btn" id="btn-rps">✊ 石头剪刀布</button>
+      <button class="btn-ghost mini-btn" id="btn-achievements">🏆 成就</button>
+    </div>
+    <div class="dream-bubble" id="dream-text">我做了一个关于数据的梦…</div>
+    <div class="ticket-hint" id="ticket-hint" hidden>🎟️ 你有 <b id="ticket-count-home">0</b> 张抽卡券，去试试手气！</div>
+  </section>
+
+  <!-- ============ 信息流 ============ -->
+  <section class="page page-feed" id="page-feed" hidden>
+    <div class="feed-topbar">
+      <div class="feed-progress"><div id="feed-progress-fill"></div></div>
+      <span class="feed-count" id="feed-count">今日 0/10</span>
+      <button class="review-btn" id="review-btn">只刷错题</button>
+      <span class="review-count" id="review-count">错题 0</span>
+    </div>
+    <div class="feed-track" id="feed-track"><!-- slides 注入 --></div>
+  </section>
+
+  <!-- ============ 挑战 ============ -->
+  <section class="page page-challenge" id="page-challenge" hidden>
+    <h2 class="page-title">挑战模式</h2>
+    <div class="ch-cards">
+      <div class="ch-card" id="ch-timed-btn">
+        <div class="ch-icon">⚡</div>
+        <h3>限时挑战</h3>
+        <p>60 秒内尽可能多答题，冲最高分</p>
+        <small>最高分：<b id="ch-best">0</b></small>
+      </div>
+      <div class="ch-card" id="ch-daily-btn">
+        <div class="ch-icon">🎯</div>
+        <h3>每日谜题</h3>
+        <p>每天一道烧脑题，答对得 50 碎片</p>
+        <small id="ch-daily-status">今日未完成</small>
+      </div>
+      <div class="ch-card" id="ch-quiz-btn">
+        <div class="ch-icon">📝</div>
+        <h3>综合小考</h3>
+        <p>10 道综合题，全对得 50 能量</p>
+        <small>需消化 20 张卡 · 最佳 <b id="ch-best-quiz">0</b></small>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 图鉴 ============ -->
+  <section class="page page-dex" id="page-dex" hidden>
+    <h2 class="page-title">知识图鉴 <small id="dex-total"></small></h2>
+    <div id="dex-list"></div>
+  </section>
+
+  <!-- ============ 抽卡 ============ -->
+  <section class="page page-gacha" id="page-gacha" hidden>
+    <h2 class="page-title">装备扭蛋机</h2>
+    <div class="gacha-machine" id="gacha-machine">
+      <div class="gacha-orb"><span>🎰</span></div>
+      <div class="ticket-balance">🎟️ 抽卡券 × <b id="ticket-count">0</b></div>
+      <div class="shards-balance">✨ 碎片 × <b id="shard-count">0</b></div>
+      <button class="btn-primary" id="btn-draw">抽一次（1 张券）</button>
+      <p class="gacha-rates">概率 N 60% / R 25% / SR 12% / SSR 3%<br/>10 连保底 SR，50 连保底 SSR</p>
+    </div>
+
+    <h3 class="inv-title">机器人背包（点击穿戴）</h3>
+    <div class="inv-preview" id="inv-preview"></div>
+    <div id="inventory"></div>
+  </section>
+
+  <!-- ============ 底部导航 ============ -->
+  <nav class="tabbar">
+    <button class="tab active" data-tab="home"><span>🏠</span>首页</button>
+    <button class="tab" data-tab="feed"><span>🍜</span>投喂</button>
+    <button class="tab" data-tab="challenge"><span>⚔️</span>挑战</button>
+    <button class="tab" data-tab="dex"><span>📖</span>图鉴</button>
+    <button class="tab" data-tab="gacha"><span>🎁</span>扭蛋</button>
+  </nav>
+</div>
+
+<!-- ============ 首访引导 ============ -->
+<div class="overlay" id="onboarding" hidden>
+  <div class="sheet onb-sheet">
+    <div class="onb-logo">🤖</div>
+    <h2>欢迎来到《喂！AI》</h2>
+    <p class="onb-desc">这里的短视频，刷一张涨一点知识。<br/>答对题目，就是给你的小机器人喂数据，<br/>它会从铁疙瘩长成超级 AI。</p>
+    <label class="onb-label">先给你的机器人起个名字：</label>
+    <input type="text" id="onb-name" maxlength="6" placeholder="小铁" value="小铁" />
+    <ul class="onb-rules">
+      <li>📱 上下滑动刷知识卡，每 3~4 张答一道题</li>
+      <li>🔥 每天消化 10 张，连胜得抽卡券</li>
+      <li>🧊 每周送 1 张补签卡，断签也不怕</li>
+    </ul>
+    <button class="btn-primary" id="onb-start">开始投喂 🚀</button>
+  </div>
+</div>
+
+<!-- ============ 断签补签 ============ -->
+<div class="overlay" id="freeze-modal" hidden>
+  <div class="sheet">
+    <h2>哎呀，断签了 🥶</h2>
+    <p>你已有 <b id="freeze-available">0</b> 张补签卡（每周自动发 1 张）。</p>
+    <p>使用 1 张可以保住 <b id="freeze-streak">0</b> 天连胜，不用则连胜从 0 重新开始。</p>
+    <div class="sheet-actions">
+      <button class="btn-ghost" id="freeze-decline">不用，重新开始</button>
+      <button class="btn-primary" id="freeze-use">🧊 使用补签卡</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 通用奖励弹窗 ============ -->
+<div class="overlay" id="reward-modal" hidden>
+  <div class="sheet reward-sheet">
+    <div class="reward-emoji" id="reward-emoji">🎉</div>
+    <h2 id="reward-title">今日目标达成！</h2>
+    <p id="reward-text"></p>
+    <button class="btn-primary" id="reward-ok">太棒了</button>
+  </div>
+</div>
+
+<!-- ============ 抽卡动画 ============ -->
+<div class="overlay gacha-overlay" id="gacha-overlay" hidden>
+  <div class="draw-stage">
+    <div class="light-door"></div>
+    <div class="draw-card" id="draw-card">
+      <div class="draw-rarity" id="draw-rarity">SSR</div>
+      <div class="draw-icon" id="draw-icon">👑</div>
+      <div class="draw-name" id="draw-name"></div>
+      <div class="draw-slot" id="draw-slot"></div>
+      <div class="draw-dup" id="draw-dup" hidden></div>
+      <button class="btn-primary" id="draw-ok" hidden>收下</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 图鉴卡片详情 ============ -->
+<div class="overlay" id="card-modal" hidden>
+  <div class="sheet card-detail">
+    <div class="detail-emoji" id="detail-emoji">🧠</div>
+    <h3 id="detail-title"></h3>
+    <p id="detail-body"></p>
+    <div class="detail-quiz" id="detail-quiz"></div>
+    <button class="btn-ghost" id="detail-close" onclick="document.getElementById('card-modal').hidden=true">合上</button>
+  </div>
+</div>
+
+<!-- ============ 新手教程 ============ -->
+<div class="overlay" id="tutorial" hidden>
+  <div class="sheet tutorial-sheet">
+    <div class="tut-step" id="tut-step">1 / 5</div>
+    <div class="tut-icon" id="tut-icon">🤖</div>
+    <h2 id="tut-title">欢迎来到《喂！AI》</h2>
+    <p id="tut-body">这里没有无脑短视频，只有一口一个的 AI 知识。<br/>刷着刷着，你的小机器人就长大了。</p>
+    <div class="tut-dots" id="tut-dots"></div>
+    <div class="sheet-actions">
+      <button class="btn-ghost" id="tut-skip">跳过教程</button>
+      <button class="btn-primary" id="tut-next">下一步 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 挑战弹窗 ============ -->
+<div class="overlay" id="challenge-modal" hidden>
+  <div class="sheet challenge-sheet">
+    <div id="challenge-body"></div>
+  </div>
+</div>
+
+<!-- ============ 猜数字 ============ -->
+<div class="overlay" id="mini-guess" hidden>
+  <div class="sheet">
+    <h2>🔢 猜数字</h2>
+    <p class="muted">猜一个 1~100 的数字，我会提示大小</p>
+    <input class="q-fill" id="gn-input" type="number" min="1" max="100" placeholder="输入数字" />
+    <button class="btn-primary" id="gn-submit">猜！</button>
+    <div id="gn-result" class="gn-result">我想好了一个 1~100 的数字</div>
+    <small>已猜 <b id="gn-tries">0</b> 次</small>
+    <button class="btn-ghost" onclick="document.getElementById('mini-guess').hidden=true">关闭</button>
+  </div>
+</div>
+
+<!-- ============ 石头剪刀布 ============ -->
+<div class="overlay" id="mini-rps" hidden>
+  <div class="sheet">
+    <h2>✊ 石头剪刀布</h2>
+    <div class="rps-btns">
+      <button class="rps-btn" data-rps="石头">✊ 石头</button>
+      <button class="rps-btn" data-rps="剪刀">✌️ 剪刀</button>
+      <button class="rps-btn" data-rps="布">🖐️ 布</button>
+    </div>
+    <div id="rps-result" class="gn-result">选一个出吧～</div>
+    <p class="muted">赢了 +10 心情，平局 +5</p>
+    <button class="btn-ghost" onclick="document.getElementById('mini-rps').hidden=true">关闭</button>
+  </div>
+</div>
+
+<!-- ============ 成就墙 ============ -->
+<div class="overlay" id="ach-modal" hidden>
+  <div class="sheet ach-sheet">
+    <h2>🏆 成就墙</h2>
+    <div id="ach-list" class="ach-list"></div>
+    <button class="btn-ghost" onclick="document.getElementById('ach-modal').hidden=true">关闭</button>
+  </div>
+</div>
+
+<!-- ============ 成就解锁弹窗 ============ -->
+<div class="ach-toast" id="ach-toast" hidden>
+  <span class="ach-toast-icon" id="ach-toast-icon">🏆</span>
+  <div>
+    <div class="ach-toast-title">成就解锁！</div>
+    <div class="ach-toast-name" id="ach-toast-name"></div>
+  </div>
+</div>
+
+<!-- ============ 轻提示 ============ -->
+<div id="toast" class="toast" hidden></div>
+
+<script type="module" src="js/main.js?v=6"></script>
+</body>
+</html>
