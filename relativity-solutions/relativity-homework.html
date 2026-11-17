@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>相对论作业 · 可抄写版</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+
+  :root{
+    --ink:#111;
+    --muted:#666;
+    --line:#d8d8d8;
+    --accent:#1a3a5c;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:#e9e9e7;
+    font-family:"Songti SC","Noto Serif CJK SC","Source Han Serif SC",SimSun,Georgia,serif;
+    font-size:12.5pt;
+    line-height:1.75;
+    color:var(--ink);
+  }
+  .sheet{
+    width:210mm;
+    min-height:297mm;
+    margin:12mm auto;
+    background:#fff;
+    padding:18mm 16mm;
+    box-shadow:0 2px 14px rgba(0,0,0,.12);
+  }
+
+  /* ---------- 卷头 ---------- */
+  .head{border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:6px}
+  .head h1{
+    font-size:18pt;margin:0 0 4px;letter-spacing:.04em;
+    font-family:"Songti SC",SimSun,serif;
+  }
+  .head .sub{font-size:9.5pt;color:var(--muted);letter-spacing:.06em}
+  .meta{
+    display:flex;gap:22px;flex-wrap:wrap;
+    font-size:10pt;color:var(--muted);
+    margin:10px 0 22px;
+  }
+  .meta span{flex:1;min-width:150px;border-bottom:1px solid var(--line);padding-bottom:2px}
+
+  /* ---------- 题目 ---------- */
+  .prob{margin:0 0 26px;break-inside:avoid;page-break-inside:avoid}
+  .prob > h2{
+    font-size:12.5pt;margin:0 0 8px;padding:3px 0 3px 10px;
+    border-left:4px solid var(--accent);
+    background:#f4f6f8;
+    font-weight:700;letter-spacing:.02em;
+  }
+  .prob h2 .en{
+    font-weight:400;color:var(--muted);font-size:9.5pt;
+    font-family:Georgia,serif;font-style:italic;margin-left:8px;
+  }
+  .label{
+    font-size:9pt;letter-spacing:.12em;color:var(--accent);
+    font-weight:700;margin:12px 0 4px;
+  }
+
+  p{margin:0 0 6px;text-align:justify}
+  .given{margin:0 0 8px}
+  .given b{font-weight:700}
+
+  /* ---------- 公式 ---------- */
+  .m{font-family:"Times New Roman",Georgia,serif;font-size:12pt;white-space:nowrap}
+  .m i{font-style:italic}
+  .disp{
+    text-align:center;
+    margin:8px 0;
+    font-family:"Times New Roman",Georgia,serif;
+    font-size:12.5pt;
+  }
+  .disp i{font-style:italic}
+  .frac{display:inline-block;vertical-align:middle;text-align:center;line-height:1.15;margin:0 .15em}
+  .frac .n{display:block;padding:0 .3em;font-size:.95em}
+  .frac .d{display:block;padding:0 .3em;border-top:1px solid currentColor;font-size:.95em}
+  .sqrt{border-top:1px solid currentColor;padding:0 .1em 0 .03em}
+  sup,sub{font-size:.7em;line-height:0}
+
+  /* ---------- 步骤 ---------- */
+  .step{margin:6px 0 6px 0}
+  .step .no{font-weight:700;color:var(--accent)}
+  .calc{margin:2px 0 6px 1.8em}
+  .calc div{margin:2px 0}
+
+  /* ---------- 答案 ---------- */
+  .ans{
+    border:1px solid var(--ink);
+    border-left:5px solid var(--accent);
+    padding:8px 12px;
+    margin:10px 0 0;
+    font-size:11.5pt;
+    background:#fbfbf9;
+    break-inside:avoid;
+  }
+  .ans .t{font-weight:700;letter-spacing:.1em;font-size:9.5pt;color:var(--accent);display:block;margin-bottom:3px}
+  .ans ul{margin:0;padding-left:1.3em}
+  .ans li{margin:1px 0}
+
+  .note{font-size:9.5pt;color:var(--muted);margin-top:6px}
+
+  /* ---------- 页脚 ---------- */
+  .foot{
+    margin-top:30px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:9pt;color:var(--muted);display:flex;justify-content:space-between
+  }
+
+  /* ---------- 打印 ---------- */
+  @media print{
+    body{background:#fff}
+    .sheet{width:auto;min-height:0;margin:0;padding:0;box-shadow:none}
+    .prob{page-break-inside:avoid}
+    .ans{background:#fff}
+  }
+
+  @media (max-width:820px){
+    body{background:#fff}
+    .sheet{width:auto;margin:0;padding:14px;box-shadow:none;min-height:0}
+    .m{white-space:normal}
+    .disp{font-size:11.5pt}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="head">
+    <h1>相对论 作业解答</h1>
+    <div class="sub">Halliday · Resnick · Walker, <i>Fundamentals of Physics</i>, Chapter 37 —— Problems 1, 2, 44, 53, 58</div>
+  </div>
+
+  <div class="meta">
+    <span>姓名：</span>
+    <span>学号：</span>
+    <span>班级：</span>
+    <span>日期：</span>
+  </div>
+
+  <p class="note" style="margin:-8px 0 18px">
+    约定：<span class="m"><i>β</i> = <i>v</i>/<i>c</i></span>，<span class="m"><i>γ</i> = 1/√(1 − <i>β</i><sup>2</sup>)</span>；
+    取 <span class="m"><i>c</i> = 3.00 × 10<sup>8</sup> m/s</span>。洛伦兹变换：
+    <span class="m">Δ<i>x</i>′ = <i>γ</i>(Δ<i>x</i> − <i>v</i>Δ<i>t</i>)</span>，
+    <span class="m">Δ<i>t</i>′ = <i>γ</i>(Δ<i>t</i> − <i>v</i>Δ<i>x</i>/<i>c</i><sup>2</sup>)</span>。
+  </p>
+
+  <!-- ============ 1 ============ -->
+  <div class="prob">
+    <h2>第 1 题　事件的相对论性倒序（Fig. 37-15）<span class="en">Problem 1</span></h2>
+
+    <p class="given">
+      <b>已知：</b>在无撇系 <span class="m"><i>S</i></span> 中，事件 <i>A</i> 先于 <i>B</i>，时间间隔
+      <span class="m">Δ<i>t</i> = 1.00 μs</span>，空间间隔 <span class="m">Δ<i>x</i> = 400 m</span>。
+      带撇系 <span class="m"><i>S</i>′</span> 以速度 <span class="m"><i>v</i> = <i>βc</i></span> 沿 <span class="m">+<i>x</i></span> 方向运动。
+    </p>
+    <p class="given"><b>求：</b>Δ<i>t</i>′ 的表达式与图像；Δt′ = 0 时的 β；次序不变与反转的 β 范围；A 能否导致 B。</p>
+
+    <div class="label">解</div>
+
+    <div class="step">
+      <span class="no">(a)</span> 由洛伦兹变换，取两事件坐标差：
+      <div class="disp">Δ<i>t</i>′ = <i>γ</i>(Δ<i>t</i> − <i>v</i>Δ<i>x</i>/<i>c</i><sup>2</sup>) = <i>γ</i>(Δ<i>t</i> − <i>β</i>Δ<i>x</i>/<i>c</i>)</div>
+      <div class="calc">
+        <div>Δ<i>x</i>/<i>c</i> = 400 / (3.00×10<sup>8</sup>) = 1.33×10<sup>−6</sup> s = 1.33 μs，</div>
+        <div>故 <span class="m">Δ<i>t</i>′ = <i>γ</i>(1.00 − 1.33<i>β</i>) μs</span>。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="no">(b)</span> 当 0 ≤ β ≤ 0.01 时，<span class="m"><i>γ</i> ≈ 1</span>，故
+      <span class="m">Δ<i>t</i>′ ≈ (1.00 − 1.33<i>β</i>) μs</span>：由 1.000 μs 缓降至 0.987 μs，
+      图像为一条近似水平的直线。
+    </div>
+
+    <div class="step">
+      <span class="no">(c)</span> 当 0.1 ≤ β &lt; 1 时，γ 迅速增大：
+      <div class="calc">
+        <div>β = 0.1：Δt′ = 0.871 μs；　β = 0.5：0.385 μs；　β = 0.75：0；</div>
+        <div>β = 0.9：−0.459 μs；　β → 1 时 γ → ∞，Δt′ → −∞。</div>
+      </div>
+      曲线由 0.871 μs 单调下降，在 β = 0.75 处穿过横轴，随后急剧下降并趋于负无穷。
+    </div>
+
+    <div class="step">
+      <span class="no">(d)</span> 令 Δ<i>t</i>′ = 0，因 γ &gt; 0，只需 1.00 − 1.33β = 0：
+      <div class="disp"><i>β</i> = <span class="frac"><span class="n">1.00 μs</span><span class="d">1.33 μs</span></span> = <span class="frac"><span class="n"><i>c</i>Δ<i>t</i></span><span class="d">Δ<i>x</i></span></span> = <b>0.750</b>，　<i>v</i> = 0.750<i>c</i></div>
+    </div>
+
+    <div class="step">
+      <span class="no">(e)(f)</span> Δ<i>t</i>′ &gt; 0（次序相同）⇒ <b>0 ≤ β &lt; 0.750</b>；
+      Δ<i>t</i>′ &lt; 0（次序反转，B 先发生）⇒ <b>0.750 &lt; β &lt; 1</b>。
+    </div>
+
+    <div class="step">
+      <span class="no">(g)</span> 取 <span class="m"><i>c</i>Δ<i>t</i> = 3.00×10<sup>8</sup> × 1.00×10<sup>−6</sup> = 300 m</span>。
+      因
+      <div class="disp"><i>c</i>Δ<i>t</i> = 300 m &lt; Δ<i>x</i> = 400 m，</div>
+      两事件为<b>类空间隔</b>，不可能有因果联系。若 A 要通过信号影响 B，所需速度
+      <span class="m"><i>v</i><sub>s</sub> = Δ<i>x</i>/Δ<i>t</i> = 4.0×10<sup>8</sup> m/s = 1.33<i>c</i> &gt; <i>c</i></span>，
+      超过光速，故 A 不能导致 B，反之亦然。也正因二者无因果联系，其先后次序才可在不同惯性系中反转。
+    </div>
+
+    <div class="ans">
+      <span class="t">答</span>
+      <ul>
+        <li>(a) Δ<i>t</i>′ = <i>γ</i>(1.00 − 1.33<i>β</i>) μs；</li>
+        <li>(b) 近似直线，1.000 μs → 0.987 μs；</li>
+        <li>(c) 0.871 μs → 0（β = 0.75）→ 负值 → −∞（β → 1）；</li>
+        <li>(d) β = 0.750（<i>v</i> = 2.25×10<sup>8</sup> m/s）；</li>
+        <li>(e) 0 ≤ β &lt; 0.750，A 仍先于 B；(f) 0.750 &lt; β &lt; 1，B 先于 A；</li>
+        <li>(g) 不能。cΔt = 300 m &lt; Δx = 400 m，属类空间隔，需 1.33c 的超光速信号。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 2 ============ -->
+  <div class="prob">
+    <h2>第 2 题　空间间隔 Δx′ 的极小值<span class="en">Problem 2</span></h2>
+
+    <p class="given"><b>已知：</b>同第 1 题，<span class="m">Δ<i>t</i> = 1.00 μs</span>，<span class="m">Δ<i>x</i> = 400 m</span>。</p>
+    <p class="given"><b>求：</b>Δ<i>x</i>′ 的表达式、图像、极小值位置与数值。</p>
+
+    <div class="label">解</div>
+
+    <div class="step">
+      <span class="no">(a)</span> 由 <span class="m">Δ<i>x</i>′ = <i>γ</i>(Δ<i>x</i> − <i>v</i>Δ<i>t</i>)</span>，并注意
+      <span class="m"><i>c</i>Δ<i>t</i> = 300 m</span>：
+      <div class="disp">Δ<i>x</i>′ = <i>γ</i>(400 − 300<i>β</i>) m</div>
+    </div>
+
+    <div class="step">
+      <span class="no">(b)</span> 0 ≤ β ≤ 0.01 时 γ ≈ 1，Δ<i>x</i>′ ≈ 400 − 300β，
+      由 400 m 缓降至 397 m，图像近似为水平直线。
+    </div>
+
+    <div class="step">
+      <span class="no">(c)</span> 0.1 ≤ β &lt; 1 时先降后升：
+      <div class="calc">
+        <div>β = 0.1：372 m；　β = 0.5：289 m；　β = 0.75：265 m（最小）；</div>
+        <div>β = 0.9：298 m；　β → 1 时 γ → ∞，Δ<i>x</i>′ → +∞。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="no">(d)</span> 令 dΔ<i>x</i>′/d<i>β</i> = 0。写成
+      <span class="m">Δ<i>x</i>′ = (400 − 300<i>β</i>)(1 − <i>β</i><sup>2</sup>)<sup>−1/2</sup></span>，求导得
+      <div class="disp">
+        <span class="frac"><span class="n">dΔ<i>x</i>′</span><span class="d">d<i>β</i></span></span>
+        = <span class="frac"><span class="n">−300(1 − <i>β</i><sup>2</sup>) + <i>β</i>(400 − 300<i>β</i>)</span><span class="d">(1 − <i>β</i><sup>2</sup>)<sup>3/2</sup></span></span>
+        = 0，
+      </div>
+      分子化简为 <span class="m">400<i>β</i> − 300 = 0</span>，故
+      <div class="disp"><i>β</i> = 300/400 = <b>0.750</b></div>
+      （亦可由不变量判定：Δ<i>x</i>′<sup>2</sup> = Δ<i>x</i><sup>2</sup> − <i>c</i><sup>2</sup>Δ<i>t</i><sup>2</sup> + <i>c</i><sup>2</sup>Δ<i>t</i>′<sup>2</sup>，
+      当 Δ<i>t</i>′ = 0 时取极小，即 β = 0.750。）
+    </div>
+
+    <div class="step">
+      <span class="no">(e)</span> 此时 <span class="m"><i>γ</i> = 1.512</span>，括号内为 175 m：
+      <div class="disp">Δ<i>x</i>′<sub>min</sub> = 1.512 × 175 = <b>265 m</b></div>
+      或直接由不变量：
+      <div class="disp">Δ<i>x</i>′<sub>min</sub> = √(400<sup>2</sup> − 300<sup>2</sup>) = √70000 = 265 m</div>
+      此即两事件的<b>固有距离</b>。
+    </div>
+
+    <div class="ans">
+      <span class="t">答</span>
+      <ul>
+        <li>(a) Δ<i>x</i>′ = <i>γ</i>(400 − 300<i>β</i>) m；</li>
+        <li>(b) 400 m → 397 m，近似直线；</li>
+        <li>(c) 372 m → 265 m（β = 0.75）→ 快速上升 → +∞；</li>
+        <li>(d) β = 0.750；(e) Δ<i>x</i>′<sub>min</sub> = 265 m。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 44 ============ -->
+  <div class="prob">
+    <h2>第 44 题　米尺收缩与事件间隔<span class="en">Problem 44</span></h2>
+
+    <p class="given">
+      <b>已知：</b>Bullwinkle 的手表走 10.0 s 对应地面 30.0 s。事件 1：<span class="m"><i>x</i><sub>1</sub> = 33.0 m，<i>t</i><sub>1</sub> = 22.0 ns</span>；
+      事件 2：<span class="m"><i>x</i><sub>2</sub> = 53.0 m，<i>t</i><sub>2</sub> = 62.0 ns</span>。
+      三把米尺分别平行于 <span class="m"><i>x</i>′</span>、<span class="m"><i>y</i>′</span>、<span class="m"><i>z</i>′</span> 轴。
+    </p>
+    <p class="given"><b>求：</b>三把尺的长度；两事件在他系中的空间、时间间隔及先后次序。</p>
+
+    <div class="label">解</div>
+
+    <div class="step">
+      <span class="no">(0)</span> 手表读数为固有时，故
+      <div class="disp"><i>γ</i> = <span class="frac"><span class="n">30.0 s</span><span class="d">10.0 s</span></span> = 3.00，
+      <i>β</i> = √(1 − 1/<i>γ</i><sup>2</sup>) = √(1 − 1/9) = 0.943，
+      <i>v</i> = 2.83×10<sup>8</sup> m/s</div>
+    </div>
+
+    <div class="step">
+      <span class="no">(a)</span> 尺 1 沿运动方向，发生长度收缩：
+      <div class="disp"><i>L</i><sub>1</sub> = <i>L</i><sub>0</sub>/<i>γ</i> = 1.00/3.00 = <b>0.333 m</b></div>
+    </div>
+
+    <div class="step">
+      <span class="no">(b)(c)</span> 尺 2、3 垂直于运动方向，长度不变：
+      <div class="disp"><i>L</i><sub>2</sub> = <i>L</i><sub>3</sub> = <b>1.00 m</b></div>
+    </div>
+
+    <div class="step">
+      <span class="no">(d)</span> 两事件在 S 系中：
+      <span class="m">Δ<i>x</i> = 20.0 m</span>，<span class="m">Δ<i>t</i> = 40.0 ns</span>。
+      <div class="disp">Δ<i>x</i>′ = <i>γ</i>(Δ<i>x</i> − <i>v</i>Δ<i>t</i>) = 3.00(20.0 − 2.83×10<sup>8</sup>×40.0×10<sup>−9</sup>)</div>
+      <div class="disp">= 3.00(20.0 − 11.3) = <b>26.1 m</b></div>
+    </div>
+
+    <div class="step">
+      <span class="no">(e)</span>
+      <div class="disp">Δ<i>t</i>′ = <i>γ</i>(Δ<i>t</i> − <i>v</i>Δ<i>x</i>/<i>c</i><sup>2</sup>)</div>
+      <div class="disp">= 3.00[40.0×10<sup>−9</sup> − (2.83×10<sup>8</sup> × 20.0)/(9.00×10<sup>16</sup>)] s</div>
+      <div class="disp">= 3.00(40.0 − 62.8)×10<sup>−9</sup> s = <b>−6.9×10<sup>−8</sup> s ≈ −69 ns</b></div>
+      <p style="margin-top:4px">校验：Δ<i>x</i>′<sup>2</sup> − <i>c</i><sup>2</sup>Δ<i>t</i>′<sup>2</sup> ≈ 26.1<sup>2</sup> − 20.6<sup>2</sup> ≈ 257 m<sup>2</sup>，
+      与 Δ<i>x</i><sup>2</sup> − <i>c</i><sup>2</sup>Δ<i>t</i><sup>2</sup> = 20.0<sup>2</sup> − 12.0<sup>2</sup> = 256 m<sup>2</sup> 相符。</p>
+    </div>
+
+    <div class="step">
+      <span class="no">(f)</span> Δ<i>t</i>′ &lt; 0 表示 <span class="m"><i>t</i>′<sub>2</sub> &lt; <i>t</i>′<sub>1</sub></span>，
+      故<b>事件 2 先发生</b>。因 <span class="m"><i>c</i>Δ<i>t</i> = 12.0 m &lt; Δ<i>x</i> = 20.0 m</span>，两事件为类空间隔，次序可以反转。
+    </div>
+
+    <div class="ans">
+      <span class="t">答</span>
+      <ul>
+        <li>(a) 0.333 m；(b) 1.00 m；(c) 1.00 m；</li>
+        <li>(d) Δ<i>x</i>′ = 26 m；(e) |Δ<i>t</i>′| = 69 ns（Δ<i>t</i>′ = −6.9×10<sup>−8</sup> s）；</li>
+        <li>(f) 事件 2 先发生。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 53 ============ -->
+  <div class="prob">
+    <h2>第 53 题　π 介子的衰变高度<span class="en">Problem 53</span></h2>
+
+    <p class="given">
+      <b>已知：</b>π 介子在海平面以上 120 km 处产生，总能量
+      <span class="m"><i>E</i> = 4.00×10<sup>5</sup> MeV</span>，静止能量
+      <span class="m"><i>mc</i><sup>2</sup> = 139.6 MeV</span>，固有寿命
+      <span class="m">Δ<i>t</i><sub>0</sub> = 35.0 ns</span>，竖直向下运动。
+    </p>
+    <p class="given"><b>求：</b>在地球参考系中衰变处的高度。</p>
+
+    <div class="label">解</div>
+
+    <div class="step">
+      <span class="no">1</span> 由能量求 γ：
+      <div class="disp"><i>γ</i> = <span class="frac"><span class="n"><i>E</i></span><span class="d"><i>mc</i><sup>2</sup></span></span> = <span class="frac"><span class="n">4.00×10<sup>5</sup></span><span class="d">139.6</span></span> = 2.865×10<sup>3</sup></div>
+      <div class="disp"><i>β</i> = √(1 − 1/<i>γ</i><sup>2</sup>) ≈ 1 − 6.1×10<sup>−8</sup> ≈ 1</div>
+    </div>
+
+    <div class="step">
+      <span class="no">2</span> 时间膨胀：地球系中寿命为
+      <div class="disp">Δ<i>t</i> = <i>γ</i>Δ<i>t</i><sub>0</sub> = 2.865×10<sup>3</sup> × 35.0 ns = 1.003×10<sup>−4</sup> s</div>
+    </div>
+
+    <div class="step">
+      <span class="no">3</span> 飞行距离（<i>v</i> ≈ <i>c</i>）：
+      <div class="disp"><i>d</i> = <i>v</i>Δ<i>t</i> ≈ <i>c</i>Δ<i>t</i> = 3.00×10<sup>8</sup> × 1.003×10<sup>−4</sup> = 3.01×10<sup>4</sup> m = 30.1 km</div>
+    </div>
+
+    <div class="step">
+      <span class="no">4</span> 衰变高度：
+      <div class="disp"><i>h</i> = 120 − 30.1 = 89.9 km ≈ <b>90 km</b></div>
+      <p style="margin-top:4px">（π 介子系验证：大气厚度收缩为 120 km/γ = 41.9 m，35 ns 内飞行 10.5 m，
+      剩余 31.4 m 折回地球系为 31.4γ ≈ 9.0×10<sup>4</sup> m = 90 km，结果一致。）</p>
+    </div>
+
+    <div class="ans">
+      <span class="t">答</span>
+      <ul>
+        <li>衰变发生在海平面以上 <b>约 90 km</b>（89.9 km ≈ 8.99×10<sup>4</sup> m）处。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 58 ============ -->
+  <div class="prob">
+    <h2>第 58 题　由图像求速度叠加<span class="en">Problem 58</span></h2>
+
+    <p class="given">
+      <b>已知：</b>粒子 <i>P</i> 相对 <i>S</i> 系以确定速度 <i>u</i> 沿 <i>x</i> 轴运动；
+      <i>S</i>′ 系以速度 <i>v</i> 沿 <i>x</i> 轴运动。图 37-20b 给出 <i>u</i>′ 随 <i>v</i> 的变化，
+      纵轴刻度由 <span class="m"><i>u</i>′<sub>a</sub> = 0.800<i>c</i></span> 标定。
+    </p>
+    <p class="given"><b>求：</b>(a) <span class="m"><i>v</i> = 0.95<i>c</i></span> 时的 <i>u</i>′；(b) <span class="m"><i>v</i> → <i>c</i></span> 时 <i>u</i>′ 的极限。</p>
+
+    <div class="label">解</div>
+
+    <div class="step">
+      <span class="no">1</span> 当 <span class="m"><i>v</i> = 0</span> 时两系重合，<span class="m"><i>u</i>′ = <i>u</i></span>。
+      由图得截距 <span class="m"><i>u</i> = <i>u</i>′<sub>a</sub> = 0.800<i>c</i></span>。
+    </div>
+
+    <div class="step">
+      <span class="no">2</span> 相对论速度变换：
+      <div class="disp"><i>u</i>′ = <span class="frac"><span class="n"><i>u</i> − <i>v</i></span><span class="d">1 − <i>uv</i>/<i>c</i><sup>2</sup></span></span>
+        = <span class="frac"><span class="n">0.800 − <i>β</i></span><span class="d">1 − 0.800<i>β</i></span></span>×<i>c</i></div>
+    </div>
+
+    <div class="step">
+      <span class="no">(a)</span> 代入 β = 0.950：
+      <div class="disp"><i>u</i>′ = <span class="frac"><span class="n">0.800 − 0.950</span><span class="d">1 − 0.800×0.950</span></span>×<i>c</i>
+        = <span class="frac"><span class="n">−0.150</span><span class="d">0.240</span></span>×<i>c</i> = <b>−0.625<i>c</i></b></div>
+      负号表示粒子在 <i>S</i>′ 中沿 −<i>x</i>′ 方向运动，速率为 0.625<i>c</i>。
+    </div>
+
+    <div class="step">
+      <span class="no">(b)</span> 令 β → 1：
+      <div class="disp"><i>u</i>′ → <span class="frac"><span class="n">0.800 − 1.000</span><span class="d">1 − 0.800</span></span>×<i>c</i>
+        = <span class="frac"><span class="n">−0.200</span><span class="d">0.200</span></span>×<i>c</i> = <b>−<i>c</i></b></div>
+      相对速率的大小始终不超过光速。
+    </div>
+
+    <div class="ans">
+      <span class="t">答</span>
+      <ul>
+        <li>(a) <i>u</i>′ = −0.625<i>c</i>；(b) <i>u</i>′ → −<i>c</i>。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>相对论作业解答 · 第 37 章</span>
+    <span>共 5 题</span>
+  </div>
+
+</div>
+</body>
+</html>
